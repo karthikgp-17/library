@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+        li a:hover {
+            background-color: #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        th {
+            background-color: #ddd;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        input[type="text"], select {
+            width: 300px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the College Library</h1>
+    </header>
+
+    <main>
+        <h2>Book Categories</h2>
+        <ul id="bookCategories">
+            <!-- List of book categories will be inserted here by JavaScript -->
+        </ul>
+
+        <h2>Online Books</h2>
+        <ul id="onlineBooks">
+            <!-- List of online books will be inserted here by JavaScript -->
+        </ul>
+
+        <h2>Book Renewal</h2>
+        <form id="bookRenewalForm">
+            <label for="studentId">Student ID:</label>
+            <input type="text" id="studentId" name="studentId">
+            <br>
+            <label for="bookId">Book ID:</label>
+            <input type="text" id="bookId" name="bookId">
+            <br>
+            <input type="submit" value="Renew Book">
+        </form>
+
+        <h2>Student Book Records</h2>
+        <table id="bookRecordsTable">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Book records will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        const bookCategories = [
+            { name: 'Fiction', id: 'fiction' },
+            { name: 'Non-Fiction', id: 'non-fiction' },
+            { name: 'Biography', id: 'biography' },
+            { name: 'Children\'s Books', id: 'childrens-books' },
+        ];
+
+        const onlineBooks = [
+            { title: 'Book Title 1', link: 'https://www.booklink1.com' },
+            { title: 'Book Title 2', link: 'https://www.booklink2.com' },
+            { title: 'Book Title 3', link: 'https://www.booklink3.com' },
+        ];
+
+        const bookRecords = [
+            { studentId: '1', bookId: '1', title: 'Sample Book 1', dueDate: '2023-03-01' },
+            { studentId: '2', bookId: '2', title: 'Sample Book 2', dueDate: '2023-03-10' },
+            { studentId: '3', bookId: '3', title: 'Sample Book 3', dueDate: '2023-03-15' },
+        ];
+
+        // Populate book categories
+        const bookCategoriesList = document.getElementById('bookCategories');
+        bookCategories.forEach(category => {
+            const listItem = document.createElement('li');
+            const anchor = document.createElement('a');
+            anchor.href = '#' + category.id;
+            anchor.textContent = category.name;
+            listItem.appendChild(anchor);
+            bookCategoriesList.appendChild(listItem);
+        });
+
+        // Populate online books
+        const onlineBooksList = document.getElementById('onlineBooks');
+        onlineBooks.forEach(book => {
+            const listItem = document.createElement('li');
+            const anchor = document.createElement('a');
+            anchor.href = book.link;
+            anchor.textContent = book.title;
+            listItem.appendChild(anchor);
+            onlineBooksList.appendChild(listItem);
+        });
+
+        // Populate book records
+        const bookRecordsTable = document.getElementById('bookRecordsTable');
+        bookRecords.forEach(record => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${record.studentId}</td>
+                <td>${record.bookId}</td>
+                <td>${record.title}</td>
+                <td>${record.dueDate}</td>
+            `;
+            bookRecordsTable.querySelector('tbody').appendChild(row);
+        });
+
+        // Handle book renewal form submission
+        const bookRenewalForm = document.getElementById('bookRenewalForm');
+        bookRenewalForm.addEventListener('submit', event => {
+            event.preventDefault();
+
+            const studentId = bookRenewalForm.studentId.value;
+            const bookId = bookRenewalForm.bookId.value;
+
+            // Perform book renewal logic here
+            console.log(`Student ${studentId} renewed book ${bookId}`);
+
+            // Clear form fields
+            bookRenewalForm.studentId.value = '';
+            bookRenewalForm.bookId.value = '';
+        });
+    </script>
+</body>
+</html>
